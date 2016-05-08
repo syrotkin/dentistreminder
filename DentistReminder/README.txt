@@ -2,6 +2,7 @@ Dentist reminder
 Connection string: Data Source=test.db;Pooling=true;FailIfMissing=false
 
 TODO:
+- Screen for entering patients -- validation there
 - Local country date format
 - UI validation that the fields that are not null, are not null
 
