@@ -14,7 +14,5 @@ namespace ReminderApplication {
             InitializeComponent();
             DataContext = new MainViewModel();
         }
-        
-        
     }
 }

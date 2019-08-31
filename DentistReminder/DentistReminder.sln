@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReminderApplication", "ReminderApplication\ReminderApplication.csproj", "{525EA30B-D589-4DA8-8231-E7E9099F90D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReminderApplicationWpf", "ReminderApplication\ReminderApplicationWpf.csproj", "{525EA30B-D589-4DA8-8231-E7E9099F90D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReminderApplicationWinForms", "ReminderApplicationWinForms\ReminderApplicationWinForms.csproj", "{1C524863-998C-4C73-BE14-EBDAD295436A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{DC8D656A-E692-4AB5-BCBA-5EC5249BFD87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{525EA30B-D589-4DA8-8231-E7E9099F90D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{525EA30B-D589-4DA8-8231-E7E9099F90D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{525EA30B-D589-4DA8-8231-E7E9099F90D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C524863-998C-4C73-BE14-EBDAD295436A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C524863-998C-4C73-BE14-EBDAD295436A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C524863-998C-4C73-BE14-EBDAD295436A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C524863-998C-4C73-BE14-EBDAD295436A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC8D656A-E692-4AB5-BCBA-5EC5249BFD87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC8D656A-E692-4AB5-BCBA-5EC5249BFD87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC8D656A-E692-4AB5-BCBA-5EC5249BFD87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC8D656A-E692-4AB5-BCBA-5EC5249BFD87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
