@@ -27,21 +27,21 @@ namespace DataAccess
                 connection.Open();
                 using (IDbCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = @"select PID, LastName, date(LastVisit) as LastVisit
+                    command.CommandText = @"select PID, LastName, FirstName, Patronymic, PhoneNumber, date(LastVisit) as LastVisit
                                             from patient
                                             where julianday('now') - julianday(lastvisit) >= 183";
                     using (IDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            var pid = Convert.ToInt32(reader["PID"]);
-                            var name = Convert.ToString(reader["LastName"]);
-                            var lastVisit = Convert.ToDateTime(reader["LastVisit"]);
                             var patient = new Patient
                             {
-                                Pid = pid,
-                                LastName = name,
-                                LastVisit = lastVisit
+                                Pid = Convert.ToInt32(reader["PID"]),
+                                LastName = Convert.ToString(reader["LastName"]),
+                                FirstName = Convert.ToString(reader["FirstName"]),
+                                Patronymic = Convert.ToString(reader["Patronymic"]),
+                                PhoneNumber = Convert.ToString(reader["PhoneNumber"]),
+                                LastVisit = Convert.ToDateTime(reader["LastVisit"])
                             };
                             patients.Add(patient);
                         }
