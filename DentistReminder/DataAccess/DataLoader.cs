@@ -8,21 +8,20 @@ namespace DataAccess
     public class DataLoader
     {
         private string connectionString;
-        private List<Patient> patients;
 
         public DataLoader(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
-        public void Load()
+        public List<Patient> Load()
         {
-            patients = new List<Patient>();
-            LoadPatients();
+           return LoadPatients();
         }
 
-        private void LoadPatients()
+        private List<Patient> LoadPatients()
         {
+            var patients = new List<Patient>();
             using (IDbConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
@@ -50,7 +49,7 @@ namespace DataAccess
                 }
                 connection.Close();
             }
+            return patients;
         }
-
     }
 }

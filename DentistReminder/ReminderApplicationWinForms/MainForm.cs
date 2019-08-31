@@ -14,9 +14,19 @@ namespace ReminderApplicationWinForms
 
         private void MainFormLoad(object sender, EventArgs e)
         {
+            LoadData();
+        }
+         
+        private void LoadData()
+        {
             var connectionString = ConfigurationManager.AppSettings["ConnectionString"];
             var loader = new DataLoader(connectionString);
-            loader.Load();
+            var patients = loader.Load();
+
+            foreach (var patient in patients)
+            {
+                patientGrid.Rows.Add(patient.Pid, patient.LastName, patient.FirstName, patient.Patronymic, patient.PhoneNumber, patient.LastVisit);
+            }
         }
     }
 }
