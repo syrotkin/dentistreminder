@@ -1,6 +1,5 @@
 # TODO
 
-1. Display dummy data in a grid
-1. Edit the data in the grid and persist to the database
-1. Insert new records in the grid and persist to the database
+1. Edit the data in the DataGridView and persist to the database (probably need data binding)
+1. Insert new records in the DataGridView and persist to the database
 
