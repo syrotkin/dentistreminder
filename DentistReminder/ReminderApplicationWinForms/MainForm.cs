@@ -74,12 +74,6 @@ namespace ReminderApplicationWinForms
             }
         }
 
-        private void BtnSaveClick(object sender, EventArgs e)
-        {
-            var patients = mainBindingSource.DataSource as List<Patient>;
-            // dataLoader.Update(patients);
-        }
-
         private void patientGrid_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
         {
             if (!patientGrid.IsCurrentRowDirty)
