@@ -43,12 +43,10 @@ namespace ReminderApplication {
         
         private IList<Patient> m_patients;
         public IList<Patient> Patients {
-            get {
-                return m_patients;
-            }
+            get => m_patients;
             set {
                 m_patients = value;
-                OnPropertyChanged("Patients");
+                OnPropertyChanged(nameof(Patients));
             }
         }
 
@@ -67,10 +65,7 @@ namespace ReminderApplication {
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged(string propertyName) {
-            var handler = PropertyChanged;
-            if (handler != null) {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }
