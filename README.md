@@ -3,6 +3,11 @@ An application for a dentist to enter patients' names, their visit dates, and re
 
 ## Notes
 
+### Attribution
+
+Icon downloaded from here:
+https://icon-icons.com/de/symbol/gro%C3%9F-zahn/56108
+
 ### SQLite
 
 Connection string: 
