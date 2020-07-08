@@ -28,73 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.patientGrid = new System.Windows.Forms.DataGridView();
-            this.columnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnPatronymic = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnPhoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnLastVisit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.mainBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.patientGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // patientGrid
             // 
             this.patientGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.patientGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.columnId,
-            this.columnLastName,
-            this.columnFirstName,
-            this.columnPatronymic,
-            this.columnPhoneNumber,
-            this.columnLastVisit});
             this.patientGrid.Location = new System.Drawing.Point(12, 31);
             this.patientGrid.Name = "patientGrid";
             this.patientGrid.Size = new System.Drawing.Size(753, 277);
             this.patientGrid.TabIndex = 0;
+            this.patientGrid.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.patientGrid_RowValidating);
             // 
-            // columnId
+            // btnSave
             // 
-            this.columnId.HeaderText = "ID";
-            this.columnId.Name = "columnId";
-            this.columnId.ReadOnly = true;
-            // 
-            // columnLastName
-            // 
-            this.columnLastName.HeaderText = "Last Name";
-            this.columnLastName.Name = "columnLastName";
-            // 
-            // columnFirstName
-            // 
-            this.columnFirstName.HeaderText = "First Name";
-            this.columnFirstName.Name = "columnFirstName";
-            // 
-            // columnPatronymic
-            // 
-            this.columnPatronymic.HeaderText = "Patronymic";
-            this.columnPatronymic.Name = "columnPatronymic";
-            // 
-            // columnPhoneNumber
-            // 
-            this.columnPhoneNumber.HeaderText = "Phone Number";
-            this.columnPhoneNumber.Name = "columnPhoneNumber";
-            // 
-            // columnLastVisit
-            // 
-            this.columnLastVisit.HeaderText = "Last Visit";
-            this.columnLastVisit.Name = "columnLastVisit";
-            this.columnLastVisit.Width = 150;
+            this.btnSave.Location = new System.Drawing.Point(690, 314);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 1;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.BtnSaveClick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(793, 347);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.patientGrid);
             this.Name = "MainForm";
             this.Text = "Dentist\'s Reminder";
             this.Load += new System.EventHandler(this.MainFormLoad);
             ((System.ComponentModel.ISupportInitialize)(this.patientGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -102,12 +74,8 @@
         #endregion
 
         private System.Windows.Forms.DataGridView patientGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnLastName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnFirstName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnPatronymic;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnPhoneNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnLastVisit;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.BindingSource mainBindingSource;
     }
 }
 

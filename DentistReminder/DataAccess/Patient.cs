@@ -12,7 +12,7 @@ namespace DataAccess
 
         public string Patronymic { get; set; }
 
-        public DateTime LastVisit { get; set; }
+        public DateTime? LastVisit { get; set; }
 
         public string PhoneNumber { get; set; }
     }
