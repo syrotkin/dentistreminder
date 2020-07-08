@@ -54,7 +54,7 @@
             this.ClientSize = new System.Drawing.Size(793, 347);
             this.Controls.Add(this.patientGrid);
             this.Name = "MainForm";
-            this.Text = "Dentist\'s Reminder";
+            this.Text = "Напоминатель стоматолога";
             this.Load += new System.EventHandler(this.MainFormLoad);
             ((System.ComponentModel.ISupportInitialize)(this.patientGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource)).EndInit();
