@@ -2,13 +2,11 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace ReminderApplicationWinForms
 {
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Globalization;
-
     public partial class MainForm : Form
     {
         private readonly DataLoader dataLoader;
@@ -80,9 +78,6 @@ namespace ReminderApplicationWinForms
             {
                 return;
             }
-
-            var castDataSource = mainBindingSource.DataSource as IList<Patient>;
-            var name = mainBindingSource.DataSource.GetType();
 
             if (!(mainBindingSource.DataSource is List<Patient> patients))
             {
