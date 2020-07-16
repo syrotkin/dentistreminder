@@ -12,23 +12,21 @@ namespace DataAccess
         private SQLiteDataAdapter dataAdapter;
         private SQLiteCommandBuilder commandBuilder;
 
-        private const string SelectCommand = @"select PID, LastName, FirstName, Patronymic, PhoneNumber, date(LastVisit) as LastVisit
-                                            from patient
-                                            where julianday('now') - julianday(lastvisit) >= 183";
+        private const string SelectOverduePatientsCommand = @"select PID, LastName, FirstName, Patronymic, PhoneNumber, date(LastVisit) as LastVisit
+                                            from Patient
+                                            where julianday('now') - julianday(LastVisit) >= 183";
+
+        private const string SelectAllPatientsCommand = @"select PID, LastName, FirstName, Patronymic, PhoneNumber, date(LastVisit) as LastVisit
+                                            from Patient";
 
         public DataLoader(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
-        public List<Patient> Load()
-        {
-           return LoadPatients();
-        }
-
         public DataTable LoadWithDataAdapter()
         {
-            dataAdapter = new SQLiteDataAdapter(SelectCommand, connectionString);
+            dataAdapter = new SQLiteDataAdapter(SelectAllPatientsCommand, connectionString);
             
             commandBuilder = new SQLiteCommandBuilder(dataAdapter);
             dataAdapter.UpdateCommand = commandBuilder.GetUpdateCommand();
@@ -41,7 +39,17 @@ namespace DataAccess
             return dataTable;
         }
 
-        private List<Patient> LoadPatients()
+        public List<Patient> LoadAllPatients()
+        {
+            return LoadPatients(SelectAllPatientsCommand);
+        }
+
+        public List<Patient> LoadOverduePatients()
+        {
+            return LoadPatients(SelectOverduePatientsCommand);
+        }
+
+        private List<Patient> LoadPatients(string commandText)
         {
             var patients = new List<Patient>();
             using (IDbConnection connection = new SQLiteConnection(connectionString))
@@ -49,7 +57,7 @@ namespace DataAccess
                 connection.Open();
                 using (IDbCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = SelectCommand;
+                    command.CommandText = commandText;
                     using (IDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -91,7 +99,7 @@ namespace DataAccess
                         [FirstName] = @firstName,
                         [Patronymic] = @patronymic,
                         [LastVisit] = @lastVisit,
-                        [PhoneNumber] = @phoneNumber,
+                        [PhoneNumber] = @phoneNumber
                         WHERE [PID] = @pid";
 
             ExecuteCommand(patient, updateCommand);

@@ -21,20 +21,26 @@ namespace ReminderApplicationWinForms
 
         private void MainFormLoad(object sender, EventArgs e)
         {
-            LoadData();
+            patientGrid.DataSource = mainBindingSource;
+            LoadAllPatients();
         }
 
-        private void LoadDataWithAdapter()
+        private void LoadAllPatientsWithDataAdapter()
         {
-            patientGrid.DataSource = mainBindingSource;
-            var table = dataLoader.LoadWithDataAdapter();
-            mainBindingSource.DataSource = table;
+            mainBindingSource.DataSource = dataLoader.LoadWithDataAdapter();
+        }
+        
+        private void LoadOverduePatients()
+        {
+            var patients = dataLoader.LoadOverduePatients();
+            mainBindingSource.DataSource = patients;
+
+            ConfigureColumns();
         }
 
-        private void LoadData()
+        private void LoadAllPatients()
         {
-            patientGrid.DataSource = mainBindingSource;
-            var patients = dataLoader.Load();
+            var patients = dataLoader.LoadAllPatients();
             mainBindingSource.DataSource = patients;
 
             ConfigureColumns();
@@ -48,6 +54,13 @@ namespace ReminderApplicationWinForms
                 pidColumn.Visible = false;
             }
 
+            SetColumnHeaders();
+
+            SetColumnWidths();
+        }
+
+        private void SetColumnHeaders()
+        {
             var headers = new Dictionary<string, string>
             {
                 [nameof(Patient.LastName)] = "Фамилия",
@@ -59,7 +72,15 @@ namespace ReminderApplicationWinForms
 
             foreach (var header in headers)
             {
-                SetHeader(header.Key, header.Value);    
+                SetHeader(header.Key, header.Value);
+            }
+        }
+
+        private void SetColumnWidths()
+        {
+            foreach (DataGridViewColumn dataGridViewColumn in patientGrid.Columns)
+            {
+                dataGridViewColumn.Width = 200;
             }
         }
 
@@ -72,7 +93,7 @@ namespace ReminderApplicationWinForms
             }
         }
 
-        private void patientGrid_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        private void PatientGridRowValidating(object sender, DataGridViewCellCancelEventArgs e)
         {
             if (!patientGrid.IsCurrentRowDirty)
             {
@@ -109,7 +130,7 @@ namespace ReminderApplicationWinForms
             }
         }
 
-        private DateTime? ToDate(string dateInput)
+        private static DateTime? ToDate(string dateInput)
         {
             if (string.IsNullOrEmpty(dateInput))
             {
@@ -135,6 +156,19 @@ namespace ReminderApplicationWinForms
             }
 
             return null;
+        }
+
+        private void CheckBoxOverdueCheckedChanged(object sender, EventArgs e)
+        {
+            var checkbox = (CheckBox) sender;
+            if (checkbox.Checked)
+            {
+                LoadOverduePatients();
+            }
+            else
+            {
+                LoadAllPatients();
+            }
         }
     }
 }

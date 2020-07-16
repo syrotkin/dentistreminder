@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.patientGrid = new System.Windows.Forms.DataGridView();
             this.mainBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.checkBoxOverdue = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.patientGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -43,31 +44,46 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.patientGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.patientGrid.DefaultCellStyle = dataGridViewCellStyle1;
-            this.patientGrid.Location = new System.Drawing.Point(18, 14);
+            this.patientGrid.Location = new System.Drawing.Point(13, 29);
             this.patientGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.patientGrid.Name = "patientGrid";
             this.patientGrid.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.patientGrid.Size = new System.Drawing.Size(1154, 502);
+            this.patientGrid.Size = new System.Drawing.Size(1164, 639);
             this.patientGrid.TabIndex = 0;
-            this.patientGrid.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.patientGrid_RowValidating);
+            this.patientGrid.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.PatientGridRowValidating);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1190, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // checkBoxOverdue
+            // 
+            this.checkBoxOverdue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxOverdue.AutoSize = true;
+            this.checkBoxOverdue.Location = new System.Drawing.Point(13, 676);
+            this.checkBoxOverdue.Name = "checkBoxOverdue";
+            this.checkBoxOverdue.Size = new System.Drawing.Size(557, 28);
+            this.checkBoxOverdue.TabIndex = 2;
+            this.checkBoxOverdue.Text = "Показать только пациентов, которым нужно напоминание";
+            this.checkBoxOverdue.UseVisualStyleBackColor = true;
+            this.checkBoxOverdue.CheckedChanged += new System.EventHandler(this.CheckBoxOverdueCheckedChanged);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1190, 534);
+            this.ClientSize = new System.Drawing.Size(1190, 707);
+            this.Controls.Add(this.checkBoxOverdue);
             this.Controls.Add(this.patientGrid);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.Text = "Напоминатель стоматолога";
@@ -75,6 +91,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.patientGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -82,6 +99,8 @@
 
         private System.Windows.Forms.DataGridView patientGrid;
         private System.Windows.Forms.BindingSource mainBindingSource;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.CheckBox checkBoxOverdue;
     }
 }
 
