@@ -30,77 +30,71 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.patientGrid = new System.Windows.Forms.DataGridView();
             this.mainBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.checkBoxOverdue = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.patientGrid)).BeginInit();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.cleaningTab = new System.Windows.Forms.TabPage();
+            this.myobraceTab = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource)).BeginInit();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // patientGrid
+            // tabControl1
             // 
-            this.patientGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.patientGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.patientGrid.Location = new System.Drawing.Point(13, 29);
-            this.patientGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.patientGrid.Name = "patientGrid";
-            this.patientGrid.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.patientGrid.Size = new System.Drawing.Size(1164, 639);
-            this.patientGrid.TabIndex = 0;
-            this.patientGrid.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.PatientGridRowValidating);
+            this.tabControl1.Controls.Add(this.cleaningTab);
+            this.tabControl1.Controls.Add(this.myobraceTab);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1175, 476);
+            this.tabControl1.TabIndex = 0;
             // 
-            // menuStrip1
+            // cleaningTab
             // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1190, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.cleaningTab.Location = new System.Drawing.Point(4, 33);
+            this.cleaningTab.Name = "cleaningTab";
+            this.cleaningTab.Padding = new System.Windows.Forms.Padding(3);
+            this.cleaningTab.Size = new System.Drawing.Size(1167, 439);
+            this.cleaningTab.TabIndex = 0;
+            this.cleaningTab.Text = "Профчистка";
+            this.cleaningTab.UseVisualStyleBackColor = true;
             // 
-            // checkBoxOverdue
+            // myobraceTab
             // 
-            this.checkBoxOverdue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxOverdue.AutoSize = true;
-            this.checkBoxOverdue.Location = new System.Drawing.Point(13, 676);
-            this.checkBoxOverdue.Name = "checkBoxOverdue";
-            this.checkBoxOverdue.Size = new System.Drawing.Size(557, 28);
-            this.checkBoxOverdue.TabIndex = 2;
-            this.checkBoxOverdue.Text = "Показать только пациентов, которым нужно напоминание";
-            this.checkBoxOverdue.UseVisualStyleBackColor = true;
-            this.checkBoxOverdue.CheckedChanged += new System.EventHandler(this.CheckBoxOverdueCheckedChanged);
+            this.myobraceTab.Location = new System.Drawing.Point(4, 33);
+            this.myobraceTab.Name = "myobraceTab";
+            this.myobraceTab.Padding = new System.Windows.Forms.Padding(3);
+            this.myobraceTab.Size = new System.Drawing.Size(1167, 439);
+            this.myobraceTab.TabIndex = 1;
+            this.myobraceTab.Text = "Myobrace";
+            this.myobraceTab.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1190, 707);
-            this.Controls.Add(this.checkBoxOverdue);
-            this.Controls.Add(this.patientGrid);
-            this.Controls.Add(this.menuStrip1);
+            this.ClientSize = new System.Drawing.Size(1199, 500);
+            this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.Text = "Напоминатель стоматолога";
             this.Load += new System.EventHandler(this.MainFormLoad);
-            ((System.ComponentModel.ISupportInitialize)(this.patientGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource)).EndInit();
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView patientGrid;
         private System.Windows.Forms.BindingSource mainBindingSource;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.CheckBox checkBoxOverdue;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage cleaningTab;
+        private System.Windows.Forms.TabPage myobraceTab;
     }
 }
 

@@ -6,23 +6,22 @@ using System.Globalization;
 
 namespace DataAccess
 {
+    using System.Configuration;
+
     public class DataLoader
     {
-        private readonly string connectionString;
+        private string connectionString;
         private SQLiteDataAdapter dataAdapter;
         private SQLiteCommandBuilder commandBuilder;
 
+
         private const string SelectOverduePatientsCommand = @"select PID, LastName, FirstName, Patronymic, PhoneNumber, date(LastVisit) as LastVisit
                                             from Patient
-                                            where julianday('now') - julianday(LastVisit) >= 183";
+                                            where Treatment = @treatment and julianday('now') - julianday(LastVisit) >= @days";
 
         private const string SelectAllPatientsCommand = @"select PID, LastName, FirstName, Patronymic, PhoneNumber, date(LastVisit) as LastVisit
-                                            from Patient";
-
-        public DataLoader(string connectionString)
-        {
-            this.connectionString = connectionString;
-        }
+                                            from Patient
+                                            where Treatment = @treatment";
 
         public DataTable LoadWithDataAdapter()
         {
@@ -39,18 +38,20 @@ namespace DataAccess
             return dataTable;
         }
 
-        public List<Patient> LoadAllPatients()
+        public List<Patient> LoadAllPatients(string treatment)
         {
-            return LoadPatients(SelectAllPatientsCommand);
+            return LoadPatients(SelectAllPatientsCommand, treatment);
         }
 
-        public List<Patient> LoadOverduePatients()
+        public List<Patient> LoadOverduePatients(string treatment, int daysBeforeReminder)
         {
-            return LoadPatients(SelectOverduePatientsCommand);
+            return LoadPatients(SelectOverduePatientsCommand, treatment, daysBeforeReminder);
         }
 
-        private List<Patient> LoadPatients(string commandText)
+        private List<Patient> LoadPatients(string commandText, string treatment, int days = 0)
         {
+            connectionString = ConfigurationManager.AppSettings["ConnectionString"];
+
             var patients = new List<Patient>();
             using (IDbConnection connection = new SQLiteConnection(connectionString))
             {
@@ -58,6 +59,16 @@ namespace DataAccess
                 using (IDbCommand command = connection.CreateCommand())
                 {
                     command.CommandText = commandText;
+                    command.Parameters.Add(new SQLiteParameter
+                    {
+                        ParameterName = "@days",
+                        Value = days
+                    });
+                    command.Parameters.Add(new SQLiteParameter
+                    {
+                        ParameterName = "@treatment",
+                        Value = treatment
+                    });
                     using (IDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -99,7 +110,8 @@ namespace DataAccess
                         [FirstName] = @firstName,
                         [Patronymic] = @patronymic,
                         [LastVisit] = @lastVisit,
-                        [PhoneNumber] = @phoneNumber
+                        [PhoneNumber] = @phoneNumber,
+                        [Treatment] = @treatment
                         WHERE [PID] = @pid";
 
             ExecuteCommand(patient, updateCommand);
@@ -132,7 +144,8 @@ namespace DataAccess
                 ["@firstName"] = patient.FirstName,
                 ["@patronymic"] = patient.Patronymic,
                 ["@lastVisit"] = patient.LastVisit,
-                ["@phoneNumber"] = patient.PhoneNumber
+                ["@phoneNumber"] = patient.PhoneNumber,
+                ["@treatment"] = patient.Treatment
             };
 
             foreach (var parameter in parameters)
@@ -144,9 +157,9 @@ namespace DataAccess
         public void Insert(Patient patient)
         {
             const string insertCommand = @"INSERT INTO [Patient]
-                                (LastName, FirstName, Patronymic, LastVisit, PhoneNumber)
+                                (LastName, FirstName, Patronymic, LastVisit, PhoneNumber, Treatment)
                                 VALUES
-                                (@lastName, @firstName, @patronymic, @lastVisit, @phoneNumber)";
+                                (@lastName, @firstName, @patronymic, @lastVisit, @phoneNumber, @treatment)";
 
             ExecuteCommand(patient, insertCommand);
         }

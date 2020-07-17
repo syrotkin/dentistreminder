@@ -15,5 +15,7 @@ namespace DataAccess
         public DateTime? LastVisit { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public string Treatment { get; set; }
     }
 }
