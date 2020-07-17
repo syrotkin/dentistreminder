@@ -9,11 +9,15 @@ namespace DataAccess
 {
     public class DataLoader
     {
-        private string connectionString;
+        private readonly string connectionString;
         private SQLiteDataAdapter dataAdapter;
         private SQLiteCommandBuilder commandBuilder;
 
-
+        public DataLoader()
+        {
+            connectionString = ConfigurationManager.AppSettings["ConnectionString"];
+        }
+      
         private const string SelectOverduePatientsCommand = @"select PID, LastName, FirstName, Patronymic, PhoneNumber, date(LastVisit) as LastVisit
                                             from Patient
                                             where Treatment = @treatment and julianday('now') - julianday(LastVisit) >= @days";
@@ -47,15 +51,29 @@ namespace DataAccess
             return LoadPatients(SelectOverduePatientsCommand, treatment, daysBeforeReminder);
         }
 
+        private int GetNextPid()
+        {
+            const string commandText = @"select seq from sqlite_sequence
+            where name = 'Patient'";
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = commandText;
+                    return Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+        }
+
         private List<Patient> LoadPatients(string commandText, string treatment, int days = 0)
         {
-            connectionString = ConfigurationManager.AppSettings["ConnectionString"];
-
             var patients = new List<Patient>();
             using (IDbConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                using (IDbCommand command = connection.CreateCommand())
+                using (var command = connection.CreateCommand())
                 {
                     command.CommandText = commandText;
                     command.Parameters.Add(new SQLiteParameter
@@ -68,18 +86,18 @@ namespace DataAccess
                         ParameterName = "@treatment",
                         Value = treatment
                     });
-                    using (IDataReader reader = command.ExecuteReader())
+                    using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             var patient = new Patient
                             {
                                 Pid = Convert.ToInt32(reader["PID"]),
-                                LastName = Convert.ToString(reader["LastName"]),
-                                FirstName = Convert.ToString(reader["FirstName"]),
-                                Patronymic = Convert.ToString(reader["Patronymic"]),
-                                PhoneNumber = Convert.ToString(reader["PhoneNumber"]),
-                                LastVisit = Convert.ToDateTime(reader["LastVisit"])
+                                LastName = TryConvertToString(reader["LastName"]),
+                                FirstName = TryConvertToString(reader["FirstName"]),
+                                Patronymic = TryConvertToString(reader["Patronymic"]),
+                                PhoneNumber = TryConvertToString(reader["PhoneNumber"]),
+                                LastVisit = TryConvertToDateTime(reader["LastVisit"])
                             };
                             patients.Add(patient);
                         }
@@ -88,6 +106,16 @@ namespace DataAccess
                 connection.Close();
             }
             return patients;
+        }
+
+        private static DateTime? TryConvertToDateTime(object o)
+        {
+            return o is DBNull ? (DateTime?)null : Convert.ToDateTime(o);
+        }
+
+        private static string TryConvertToString(object o)
+        {
+            return o is DBNull ? null : Convert.ToString(o);
         }
 
         public void UpdateFromDataTable(object dataSource)
@@ -139,7 +167,7 @@ namespace DataAccess
             var parameters = new Dictionary<string, object>
             {
                 ["@pid"] = patient.Pid,
-                ["@lastName"] = patient.LastName,
+                ["@lastName"] = patient.LastName ?? "ERROR",
                 ["@firstName"] = patient.FirstName,
                 ["@patronymic"] = patient.Patronymic,
                 ["@lastVisit"] = patient.LastVisit,
@@ -153,7 +181,7 @@ namespace DataAccess
             }
         }
 
-        public void Insert(Patient patient)
+        public int Insert(Patient patient)
         {
             const string insertCommand = @"INSERT INTO [Patient]
                                 (LastName, FirstName, Patronymic, LastVisit, PhoneNumber, Treatment)
@@ -161,6 +189,8 @@ namespace DataAccess
                                 (@lastName, @firstName, @patronymic, @lastVisit, @phoneNumber, @treatment)";
 
             ExecuteCommand(patient, insertCommand);
+
+            return GetNextPid();
         }
     }
 }

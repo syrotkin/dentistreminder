@@ -70,7 +70,7 @@
             this.Controls.Add(this.patientGrid);
             this.Name = "PatientDisplayer";
             this.Size = new System.Drawing.Size(579, 354);
-            this.Load += new System.EventHandler(this.PatientDisplayer_Load);
+            this.Load += new System.EventHandler(this.PatientDisplayerLoad);
             ((System.ComponentModel.ISupportInitialize)(this.patientGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).EndInit();
             this.ResumeLayout(false);

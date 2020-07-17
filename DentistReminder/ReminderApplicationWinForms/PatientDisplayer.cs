@@ -11,6 +11,7 @@ namespace ReminderApplicationWinForms
         private DataLoader dataLoader;
 
         public int DaysBeforeReminder { get; set; } = 183;
+
         public string Treatment { get; set; }
 
         public PatientDisplayer()
@@ -18,11 +19,12 @@ namespace ReminderApplicationWinForms
             InitializeComponent();
         }
 
-        private void PatientDisplayer_Load(object sender, EventArgs e)
+        private void PatientDisplayerLoad(object sender, EventArgs e)
         {
-            // TODO: check if has been defined already
-
-            dataLoader = new DataLoader();
+            if (dataLoader == null)
+            {
+                dataLoader = new DataLoader();
+            }
 
             patientGrid.DataSource = patientBindingSource;
             LoadAllPatients();
@@ -31,6 +33,14 @@ namespace ReminderApplicationWinForms
         private void LoadAllPatients()
         {
             var patients = dataLoader.LoadAllPatients(Treatment);
+            patientBindingSource.DataSource = patients;
+
+            ConfigureColumns();
+        }
+
+        private void LoadOverduePatients()
+        {
+            var patients = dataLoader.LoadOverduePatients(Treatment, DaysBeforeReminder);
             patientBindingSource.DataSource = patients;
 
             ConfigureColumns();
@@ -106,7 +116,6 @@ namespace ReminderApplicationWinForms
 
             if (pid == 0 || FirstOrDefault(patients, pid) == null)
             {
-                // TODO: validation: check which fields are not null, allow null fields to be inserted
                 var patient = new Patient
                 {
                     LastName = row.Cells["LastName"]?.Value?.ToString(),
@@ -116,7 +125,8 @@ namespace ReminderApplicationWinForms
                     PhoneNumber = row.Cells["PhoneNumber"]?.Value?.ToString(),
                     Treatment = Treatment
                 };
-                dataLoader.Insert(patient);
+                pid = dataLoader.Insert(patient);
+                row.Cells["PID"].Value = pid;
             }
             else
             {
@@ -159,7 +169,11 @@ namespace ReminderApplicationWinForms
 
         private void CheckBoxOverdueCheckedChanged(object sender, EventArgs e)
         {
-            var checkbox = (CheckBox) sender;
+            LoadDependingOnCheckboxValue((CheckBox)sender);
+        }
+
+        private void LoadDependingOnCheckboxValue(CheckBox checkbox)
+        {
             if (checkbox.Checked)
             {
                 LoadOverduePatients();
@@ -168,14 +182,6 @@ namespace ReminderApplicationWinForms
             {
                 LoadAllPatients();
             }
-        }
-
-        private void LoadOverduePatients()
-        {
-            var patients = dataLoader.LoadOverduePatients(Treatment, DaysBeforeReminder);
-            patientBindingSource.DataSource = patients;
-
-            ConfigureColumns();
         }
     }
 }

@@ -16,13 +16,13 @@ Connection string:
 
 ```sql
 CREATE TABLE Patient (
-	PID INTEGER PRIMARY KEY,
+	PID INTEGER PRIMARY KEY AUTOINCREMENT,
 	LastName TEXT(100) NOT NULL,
 	FirstName TEXT(100),
 	Patronymic TEXT(100),
 	LastVisit TEXT(100),
-	PhoneNumber TEXT(100)
-);
+	PhoneNumber TEXT(100),
+	Treatment nvarchar(100) NOT NULL);
 ```
 
 You can specify the PID explicitly:
