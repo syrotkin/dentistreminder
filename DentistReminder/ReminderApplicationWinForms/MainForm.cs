@@ -1,9 +1,5 @@
-﻿using DataAccess;
-using System;
-using System.Configuration;
+﻿using System;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace ReminderApplicationWinForms
 {

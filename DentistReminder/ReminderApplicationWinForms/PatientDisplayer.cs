@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Globalization;
+using DataAccess;
 
 namespace ReminderApplicationWinForms
 {
-    using System.Globalization;
-    using DataAccess;
-
     public partial class PatientDisplayer : UserControl
     {
         private DataLoader dataLoader;

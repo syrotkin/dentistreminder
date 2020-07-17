@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Globalization;
+using System.Configuration;
 
 namespace DataAccess
 {
-    using System.Configuration;
-
     public class DataLoader
     {
         private string connectionString;
