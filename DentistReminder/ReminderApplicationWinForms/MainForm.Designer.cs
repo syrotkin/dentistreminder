@@ -33,7 +33,7 @@
             this.mainBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.cleaningTab = new System.Windows.Forms.TabPage();
-            this.myobraceTab = new System.Windows.Forms.TabPage();
+            this.orthodonticsTab = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
@@ -44,7 +44,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.cleaningTab);
-            this.tabControl1.Controls.Add(this.myobraceTab);
+            this.tabControl1.Controls.Add(this.orthodonticsTab);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -61,15 +61,15 @@
             this.cleaningTab.Text = "Профчистка";
             this.cleaningTab.UseVisualStyleBackColor = true;
             // 
-            // myobraceTab
+            // orthodonticsTab
             // 
-            this.myobraceTab.Location = new System.Drawing.Point(4, 33);
-            this.myobraceTab.Name = "myobraceTab";
-            this.myobraceTab.Padding = new System.Windows.Forms.Padding(3);
-            this.myobraceTab.Size = new System.Drawing.Size(1167, 439);
-            this.myobraceTab.TabIndex = 1;
-            this.myobraceTab.Text = "Myobrace";
-            this.myobraceTab.UseVisualStyleBackColor = true;
+            this.orthodonticsTab.Location = new System.Drawing.Point(4, 33);
+            this.orthodonticsTab.Name = "orthodonticsTab";
+            this.orthodonticsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.orthodonticsTab.Size = new System.Drawing.Size(1167, 439);
+            this.orthodonticsTab.TabIndex = 1;
+            this.orthodonticsTab.Text = "Ортодонтия";
+            this.orthodonticsTab.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -94,7 +94,7 @@
         private System.Windows.Forms.BindingSource mainBindingSource;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage cleaningTab;
-        private System.Windows.Forms.TabPage myobraceTab;
+        private System.Windows.Forms.TabPage orthodonticsTab;
     }
 }
 

@@ -17,13 +17,13 @@ namespace ReminderApplicationWinForms
             cleaningTab.Controls.Add(cleaningDisplayer);
             cleaningDisplayer.Dock = DockStyle.Fill;
 
-            var myobraceDisplayer = new PatientDisplayer
+            var orthodonticsDisplayer = new PatientDisplayer
             {
                 DaysBeforeReminder = 30,
-                Treatment = "Myobrace"
+                Treatment = "Orthodontics"
             };
-            myobraceTab.Controls.Add(myobraceDisplayer);
-            myobraceDisplayer.Dock = DockStyle.Fill;
+            orthodonticsTab.Controls.Add(orthodonticsDisplayer);
+            orthodonticsDisplayer.Dock = DockStyle.Fill;
         }
 
         private void MainFormLoad(object sender, EventArgs e)
